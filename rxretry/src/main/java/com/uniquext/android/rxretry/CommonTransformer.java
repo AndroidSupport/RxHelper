@@ -1,4 +1,4 @@
-package com.uniquext.android.rxretry.compose;
+package com.uniquext.android.rxretry;
 
 import com.uniquext.android.rxretry.retry.ObservableRetry;
 import com.uniquext.android.rxretry.retry.RetryConfig;
@@ -71,7 +71,8 @@ public class CommonTransformer<Stream> implements ObservableTransformer<Stream, 
                 .flatMap(mOnResultFormat == null ? DEFAULT_ON_RESULT_FORMAT : mOnResultFormat)
                 .onErrorResumeNext(mOnErrorResume == null ? DEFAULT_ON_ERROR_FORMAT : mOnErrorResume)
                 .retryWhen(new ObservableRetry(mRetryConfigProvider))
-                .doOnTerminate(mOnTerminate == null ? DEFAULT_ON_TERMINATE : mOnTerminate);
+                .doOnTerminate(mOnTerminate == null ? DEFAULT_ON_TERMINATE : mOnTerminate)
+                .observeOn(AndroidSchedulers.mainThread());
     }
 
 }

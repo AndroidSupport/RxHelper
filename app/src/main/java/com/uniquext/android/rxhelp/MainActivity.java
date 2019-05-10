@@ -2,7 +2,10 @@ package com.uniquext.android.rxhelp;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
+import com.uniquext.android.rxhelp.compose.NetworkResponseBean;
+import com.uniquext.android.rxhelp.compose.SimpleTransformerUtil;
 import com.uniquext.android.rxlifecycle.base.RxAppCompatActivity;
 import com.uniquext.android.rxlifecycle.event.ActivityEvent;
 
@@ -20,27 +23,54 @@ public class MainActivity extends RxAppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        Observable.interval(1000L, TimeUnit.MILLISECONDS)
-                .compose(bindUntilEvent(ActivityEvent.STOP))
-                .subscribe(new Observer<Long>() {
+//        Observable.interval(1000L, TimeUnit.MILLISECONDS)
+//                .compose(bindUntilEvent(ActivityEvent.STOP))
+//                .subscribe(new Observer<Long>() {
+//                    @Override
+//                    public void onSubscribe(Disposable d) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onNext(Long aLong) {
+//                        Log.i("####", "onNext " + aLong);
+//                    }
+//
+//                    @Override
+//                    public void onError(Throwable e) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onComplete() {
+//                        Log.i("####", "onComplete ");
+//                    }
+//                });
+
+
+//        Observable.just(new NetworkResponseBean(0, "ABC"))
+//        Observable.just(new NetworkResponseBean(1, "ABC"))
+        Observable.just(new NetworkResponseBean(2, "ABC"))
+                .compose(SimpleTransformerUtil.transformer(findViewById(R.id.textview)))
+                .subscribe(new Observer<NetworkResponseBean>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(Long aLong) {
-                        Log.i("####", "onNext " + aLong);
+                    public void onNext(NetworkResponseBean networkResponseBean) {
+                        Toast.makeText(MainActivity.this, "请求成功了", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onError(Throwable e) {
-
+                        Toast.makeText(MainActivity.this, "取消了重试", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onComplete() {
-                        Log.i("####", "onComplete ");
+
                     }
                 });
     }

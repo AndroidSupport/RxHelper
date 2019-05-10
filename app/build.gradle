@@ -31,7 +31,9 @@ dependencies {
     androidTestImplementation 'androidx.test:runner:1.2.0-alpha05'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0-alpha05'
 
-    implementation project(':rxlifecycle')
     implementation 'io.reactivex.rxjava2:rxjava:2.2.3'
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
+
+    implementation project(':rxretry')
+    implementation project(':rxlifecycle')
 }
