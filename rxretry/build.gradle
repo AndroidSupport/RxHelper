@@ -1,10 +1,6 @@
 apply plugin: 'com.android.library'
 apply from: 'maven_push.gradle'
 
-static def getProductName() {
-    return "rxretry"
-}
-
 static def releaseTime() {
     return new Date().format("yyyyMMddHHmmss", TimeZone.getTimeZone("GMT+08:00"))
 }
@@ -29,7 +25,7 @@ android {
         }
         libraryVariants.all { variant ->
             variant.outputs.all {
-                outputFileName = "${getProductName()}_v${defaultConfig.versionName}_${releaseTime()}.aar"
+                outputFileName = "${PROJECT_NAME}_v${defaultConfig.versionName}_${releaseTime()}.aar"
             }
         }
     }
