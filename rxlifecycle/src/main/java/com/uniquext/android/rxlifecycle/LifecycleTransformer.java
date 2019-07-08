@@ -34,6 +34,8 @@ class LifecycleTransformer<Upstream> implements ObservableTransformer<Upstream, 
 
     @Override
     public ObservableSource<Upstream> apply(Observable<Upstream> upstream) {
+        //  Returns an Observable that emits the items emitted by the source Observable until a second ObservableSource emits an item.
+        //  takeUntil将返回一个Observable，发射原始Observable，直到第二个Observable发射一个数据
         return upstream.takeUntil(lifecycleEventSubject);
     }
 }

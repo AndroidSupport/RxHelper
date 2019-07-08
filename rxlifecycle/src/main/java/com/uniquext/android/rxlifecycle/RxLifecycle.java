@@ -27,14 +27,14 @@ import io.reactivex.ObservableTransformer;
 public class RxLifecycle {
 
     public static <Upstream, Event> ObservableTransformer<Upstream, Upstream> bindUntilEvent(Observable<Event> eventSubject, Event event) {
-        return bind(takeUntilEvent(eventSubject, event));
+        return bind(targetEventSubject(eventSubject, event));
     }
 
     private static <Upstream, Event> LifecycleTransformer<Upstream> bind(ObservableSource<Event> eventSubject) {
         return new LifecycleTransformer<>(eventSubject);
     }
 
-    private static <Event> ObservableSource<Event> takeUntilEvent(Observable<Event> eventSubject, final Event event) {
+    private static <Event> ObservableSource<Event> targetEventSubject(Observable<Event> eventSubject, final Event event) {
         return eventSubject.filter(e -> e.equals(event));
     }
 }
