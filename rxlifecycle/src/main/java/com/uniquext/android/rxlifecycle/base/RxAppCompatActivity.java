@@ -32,7 +32,7 @@ import io.reactivex.subjects.BehaviorSubject;
  */
 public abstract class RxAppCompatActivity extends AppCompatActivity {
 
-    private final BehaviorSubject<ActivityEvent> activityEventSubject = BehaviorSubject.create();
+    protected final BehaviorSubject<ActivityEvent> activityEventSubject = BehaviorSubject.create();
 
     public <Upstream> ObservableTransformer<Upstream, Upstream> bindUntilEvent(final ActivityEvent event) {
         return RxLifecycle.bindUntilEvent(activityEventSubject, event);

@@ -1,5 +1,8 @@
 package com.uniquext.android.rxlifecycle;
 
+import com.uniquext.android.rxlifecycle.event.ActivityEvent;
+import com.uniquext.android.rxlifecycle.event.FragmentEvent;
+
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
 import io.reactivex.ObservableTransformer;
@@ -26,7 +29,11 @@ import io.reactivex.ObservableTransformer;
  */
 public class RxLifecycle {
 
-    public static <Upstream, Event> ObservableTransformer<Upstream, Upstream> bindUntilEvent(Observable<Event> eventSubject, Event event) {
+    public static <Upstream> ObservableTransformer<Upstream, Upstream> bindUntilEvent(Observable<ActivityEvent> eventSubject, ActivityEvent event) {
+        return bind(targetEventSubject(eventSubject, event));
+    }
+
+    public static <Upstream> ObservableTransformer<Upstream, Upstream> bindUntilEvent(Observable<FragmentEvent> eventSubject, FragmentEvent event) {
         return bind(targetEventSubject(eventSubject, event));
     }
 
@@ -34,7 +41,11 @@ public class RxLifecycle {
         return new LifecycleTransformer<>(eventSubject);
     }
 
-    private static <Event> ObservableSource<Event> targetEventSubject(Observable<Event> eventSubject, final Event event) {
-        return eventSubject.filter(e -> e.equals(event));
+    private static ObservableSource<ActivityEvent> targetEventSubject(Observable<ActivityEvent> eventSubject, final ActivityEvent event) {
+        return eventSubject.filter(e -> e.ordinal() - event.ordinal() >= 0);
+    }
+
+    private static ObservableSource<FragmentEvent> targetEventSubject(Observable<FragmentEvent> eventSubject, final FragmentEvent event) {
+        return eventSubject.filter(e -> e.ordinal() - event.ordinal() >= 0);
     }
 }

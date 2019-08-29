@@ -35,7 +35,7 @@ import io.reactivex.subjects.BehaviorSubject;
  */
 public abstract class RxFragment extends Fragment {
 
-    private final BehaviorSubject<FragmentEvent> fragmentEventSubject = BehaviorSubject.create();
+    protected final BehaviorSubject<FragmentEvent> fragmentEventSubject = BehaviorSubject.create();
 
     public <Upstream> ObservableTransformer<Upstream, Upstream> bindUntilEvent(final FragmentEvent event) {
         return RxLifecycle.bindUntilEvent(fragmentEventSubject, event);
