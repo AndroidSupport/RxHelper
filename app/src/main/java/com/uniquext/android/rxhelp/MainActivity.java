@@ -9,11 +9,13 @@ import com.uniquext.android.rxhelp.compose.NetworkResponseBean;
 import com.uniquext.android.rxhelp.compose.SimpleTransformerUtil;
 import com.uniquext.android.rxlifecycle.base.RxAppCompatActivity;
 import com.uniquext.android.rxlifecycle.event.ActivityEvent;
+import com.uniquext.android.rxlifecycle.temp.RxLifecycle;
 
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
+import io.reactivex.ObservableTransformer;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Function;
@@ -25,7 +27,7 @@ public class MainActivity extends RxAppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Test2.bind(this);
+        RxLifecycle.INSTANCE.bind(this);
 
 //        life();
 
@@ -62,7 +64,10 @@ public class MainActivity extends RxAppCompatActivity {
         super.onDestroy();
         //  必须在super后面   因为rxjava生命周期可能绑定监听onDestroy
         //  而rxjava的监听实现依赖于lifecycle
-        Test2.unbind(this);
+//        Test2.unbind(this);
+//        com.uniquext.android.rxlifecycle.temp.Test2.INSTANCE.bind();
+        RxLifecycle.INSTANCE.unbind(this);
+
     }
 
     private void life(){
@@ -70,7 +75,14 @@ public class MainActivity extends RxAppCompatActivity {
                 .merge(Observable.just(1L), Observable .interval(5 * 1000L, TimeUnit.MILLISECONDS))
 //                .just("aaaaaa")
 //                .compose(bindUntilEvent(ActivityEvent.STOP))
-                .compose(Test2.onDestroy(this))
+//                .compose(Test2.onDestroy(this))
+                .compose(RxLifecycle.INSTANCE.untilStop(this))
+                .compose(new ObservableTransformer<Long, Long>() {
+                    @Override
+                    public ObservableSource<Long> apply(Observable<Long> upstream) {
+                        return upstream;
+                    }
+                })
                 .subscribe(new Observer<Long>() {
                     @Override
                     public void onSubscribe(Disposable d) {

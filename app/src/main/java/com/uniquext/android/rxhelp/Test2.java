@@ -14,22 +14,22 @@ public class Test2 {
 
 
 
-    protected void onCreate() {
+    public static void onCreate() {
     }
-    protected void onStart() {
+    public static void onStart() {
 
     }
-    protected void onResume() {
+    public static void onResume() {
 
     }
-    protected static <Upstream> ObservableTransformer<Upstream, Upstream> onPause(LifecycleOwner lifecycleOwner) {
+    public static <Upstream> ObservableTransformer<Upstream, Upstream> onPause(LifecycleOwner lifecycleOwner) {
         return map.get(lifecycleOwner).bindUntilEvent(ActivityEvent.PAUSE);
     }
-    protected void onStop() {
+    public static void onStop() {
 
     }
 
-    protected static <Upstream> ObservableTransformer<Upstream, Upstream> onDestroy(LifecycleOwner lifecycleOwner) {
+    public static <Upstream> ObservableTransformer<Upstream, Upstream> onDestroy(LifecycleOwner lifecycleOwner) {
         return map.get(lifecycleOwner).bindUntilEvent(ActivityEvent.STOP);
     }
 
@@ -39,7 +39,7 @@ public class Test2 {
 
     public static void bind(LifecycleOwner lifecycleOwner) {
         map.put(lifecycleOwner, new Test());
-        lifecycleOwner.getLifecycle().addObserver(map.get(lifecycleOwner));
+        lifecycleOwner.getLifecycle().addObserver(map.put(lifecycleOwner, new Test()));
     }
 
     public static void unbind(LifecycleOwner lifecycleOwner) {
