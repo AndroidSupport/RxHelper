@@ -58,19 +58,19 @@ public abstract class RxAppCompatActivity extends AppCompatActivity {
 
     @Override
     protected void onPause() {
-        super.onPause();
         activityEventSubject.onNext(ActivityEvent.PAUSE);
+        super.onPause();
     }
 
     @Override
     protected void onStop() {
-        super.onStop();
         activityEventSubject.onNext(ActivityEvent.STOP);
+        super.onStop();
     }
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
         activityEventSubject.onNext(ActivityEvent.DESTROY);
+        super.onDestroy();
     }
 }

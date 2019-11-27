@@ -25,7 +25,9 @@ public class MainActivity extends RxAppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        life();
+        Test2.bind(this);
+
+//        life();
 
 //        Observable.just(new NetworkResponseBean(0, "ABC"))
 //        Observable.just(new NetworkResponseBean(1, "ABC"))
@@ -55,11 +57,20 @@ public class MainActivity extends RxAppCompatActivity {
     }
 
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        //  必须在super后面   因为rxjava生命周期可能绑定监听onDestroy
+        //  而rxjava的监听实现依赖于lifecycle
+        Test2.unbind(this);
+    }
+
     private void life(){
         Observable
                 .merge(Observable.just(1L), Observable .interval(5 * 1000L, TimeUnit.MILLISECONDS))
 //                .just("aaaaaa")
-                .compose(bindUntilEvent(ActivityEvent.STOP))
+//                .compose(bindUntilEvent(ActivityEvent.STOP))
+                .compose(Test2.onDestroy(this))
                 .subscribe(new Observer<Long>() {
                     @Override
                     public void onSubscribe(Disposable d) {
