@@ -1,5 +1,6 @@
 package com.uniquext.android.rxhelp;
 
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -40,7 +41,7 @@ public class MainActivity extends BaseActivity {
 
     private void lifeA() {
         Observable
-                .merge(Observable.just(1L), Observable.interval(5 * 1000L, TimeUnit.MILLISECONDS))
+                .interval(5 * 1000L, TimeUnit.MILLISECONDS)
                 .compose(RxLifecycle.INSTANCE.untilPause(this))
                 .subscribe(new Observer<Long>() {
                     @Override
