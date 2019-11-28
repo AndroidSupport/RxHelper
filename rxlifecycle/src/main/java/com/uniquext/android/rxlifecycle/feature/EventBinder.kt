@@ -1,4 +1,4 @@
-package com.uniquext.android.rxlifecycle.temp
+package com.uniquext.android.rxlifecycle.feature
 
 import androidx.lifecycle.Lifecycle
 import io.reactivex.Observable

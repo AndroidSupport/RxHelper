@@ -1,4 +1,4 @@
-package com.uniquext.android.rxlifecycle.temp
+package com.uniquext.android.rxlifecycle.feature
 
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
@@ -49,7 +49,7 @@ object RxLifecycle {
         }
     }
 
-    fun <Upstream> untilDestory(lifecycleOwner: LifecycleOwner): ObservableTransformer<Upstream, Upstream> {
+    fun <Upstream> untilDestroy(lifecycleOwner: LifecycleOwner): ObservableTransformer<Upstream, Upstream> {
         return if (lifecycleMap[lifecycleOwner] == null) {
             NullTransformer()
         } else {
@@ -58,10 +58,9 @@ object RxLifecycle {
     }
 
     fun bind(lifecycleOwner: LifecycleOwner) {
-        val lifecycleObserver = lifecycleMap.put(lifecycleOwner, RxLifecycleObserver())
-        if (lifecycleObserver != null) {
-            lifecycleOwner.lifecycle.addObserver(lifecycleObserver)
-        }
+        val lifecycleObserver = RxLifecycleObserver()
+        lifecycleMap[lifecycleOwner] = lifecycleObserver
+        lifecycleOwner.lifecycle.addObserver(lifecycleObserver)
     }
 
     fun unbind(lifecycleOwner: LifecycleOwner) {
