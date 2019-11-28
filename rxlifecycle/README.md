@@ -22,7 +22,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 //  compose(RxLifecycle.INSTANCE.untilPause(this))
 Observable
         .interval(5 * 1000L, TimeUnit.MILLISECONDS)
-        .compose(RxLifecycle.INSTANCE.untilPause(this))
+        .compose(RxLifecycle.untilPause(this))
         .subscribe(new Observer<Long>() {
             @Override
             public void onSubscribe(Disposable d) {
@@ -48,5 +48,5 @@ Observable
 
 ## Dependency
 ```
-implementation 'com.uniquext.androidx:rxlifecycle:x.0.0'
+implementation 'com.uniquext.android:rxlifecycle:2.0.0'
 ```

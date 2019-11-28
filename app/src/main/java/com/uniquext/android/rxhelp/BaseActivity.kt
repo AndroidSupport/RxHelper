@@ -2,7 +2,7 @@ package com.uniquext.android.rxhelp
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.uniquext.android.rxlifecycle.feature.RxLifecycle
+import com.uniquext.android.rxlifecycle.RxLifecycle
 
 abstract class BaseActivity : AppCompatActivity() {
 

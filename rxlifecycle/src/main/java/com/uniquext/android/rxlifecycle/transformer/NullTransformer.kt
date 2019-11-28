@@ -1,4 +1,4 @@
-package com.uniquext.android.rxlifecycle.feature
+package com.uniquext.android.rxlifecycle.transformer
 
 import io.reactivex.Observable
 import io.reactivex.ObservableSource

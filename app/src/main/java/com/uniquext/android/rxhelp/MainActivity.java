@@ -9,7 +9,7 @@ import android.widget.Toast;
 
 import com.uniquext.android.rxhelp.compose.NetworkResponseBean;
 import com.uniquext.android.rxhelp.compose.SimpleTransformerUtil;
-import com.uniquext.android.rxlifecycle.feature.RxLifecycle;
+import com.uniquext.android.rxlifecycle.RxLifecycle;
 
 import java.util.concurrent.TimeUnit;
 
@@ -42,7 +42,7 @@ public class MainActivity extends BaseActivity {
     private void lifeA() {
         Observable
                 .interval(5 * 1000L, TimeUnit.MILLISECONDS)
-                .compose(RxLifecycle.INSTANCE.untilPause(this))
+                .compose(RxLifecycle.untilPause(this))
                 .subscribe(new Observer<Long>() {
                     @Override
                     public void onSubscribe(Disposable d) {
@@ -69,7 +69,7 @@ public class MainActivity extends BaseActivity {
     private void lifeB() {
         Observable
                 .merge(Observable.just(1L), Observable.interval(5 * 1000L, TimeUnit.MILLISECONDS))
-                .compose(RxLifecycle.INSTANCE.untilPause(this))
+                .compose(RxLifecycle.untilPause(this))
                 .subscribe(new Observer<Long>() {
                     @Override
                     public void onSubscribe(Disposable d) {
@@ -96,7 +96,7 @@ public class MainActivity extends BaseActivity {
     private void lifeC() {
         Observable
                 .merge(Observable.just(1L), Observable.interval(5 * 1000L, TimeUnit.MILLISECONDS))
-                .compose(RxLifecycle.INSTANCE.untilDestroy(this))
+                .compose(RxLifecycle.untilDestroy(this))
                 .subscribe(new Observer<Long>() {
                     @Override
                     public void onSubscribe(Disposable d) {

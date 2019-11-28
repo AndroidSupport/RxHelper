@@ -1,6 +1,7 @@
-package com.uniquext.android.rxlifecycle.feature
+package com.uniquext.android.rxlifecycle.wrap
 
 import androidx.lifecycle.Lifecycle
+import com.uniquext.android.rxlifecycle.transformer.LifecycleTransformer
 import io.reactivex.Observable
 import io.reactivex.ObservableSource
 import io.reactivex.ObservableTransformer

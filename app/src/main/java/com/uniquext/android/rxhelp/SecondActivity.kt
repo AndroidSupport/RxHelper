@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.TextView
-import com.uniquext.android.rxlifecycle.feature.RxLifecycle
+import com.uniquext.android.rxlifecycle.RxLifecycle
 import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
