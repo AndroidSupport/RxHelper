@@ -1,1 +1,1 @@
-include ':app', ':rxlifecycle', ':rxretry'
+include ':app', ':rxlifecycle', ':rxretry', ':rx-lifecycle-plugin'/*, ':RxLifecyclePlugin'*/
